@@ -1,3 +1,5 @@
+import Navigation from '../copmonents/Navigation';
+
 export default function Page() {
   return (
     <div>

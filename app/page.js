@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Navigation from './copmonents/Navigation';
 
 export default function Home() {
   return (
