@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function Navigation() {
   return (
@@ -13,7 +13,7 @@ export default function Navigation() {
         <Link href="/about">About</Link>
       </li>
       <li>
-        <Link href="/account">Your Account</Link>
+        <Link href="/account">Your account</Link>
       </li>
     </ul>
   );
