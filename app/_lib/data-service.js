@@ -4,11 +4,7 @@ import { eachDayOfInterval } from 'date-fns';
 // GET
 
 export async function getCabin(id) {
-  const { data, error } = await supabase
-    .from('cabins')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const { data, error } = await supabase.from('cabins').select('*').eq('id', id).single();
 
   // For testing
   // await new Promise((res) => setTimeout(res, 1000));
@@ -50,22 +46,14 @@ export const getCabins = async function () {
 
 // Guests are uniquely identified by their email address
 export async function getGuest(email) {
-  const { data, error } = await supabase
-    .from('guests')
-    .select('*')
-    .eq('email', email)
-    .single();
+  const { data, error } = await supabase.from('guests').select('*').eq('email', email).single();
 
   // No error here! We handle the possibility of no guest in the sign in callback
   return data;
 }
 
 export async function getBooking(id) {
-  const { data, error, count } = await supabase
-    .from('bookings')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const { data, error, count } = await supabase.from('bookings').select('*').eq('id', id).single();
 
   if (error) {
     console.error(error);
@@ -112,7 +100,7 @@ export async function getBookedDatesByCabinId(cabinId) {
 
   // Converting to actual dates to be displayed in the date picker
   const bookedDates = data
-    .map((booking) => {
+    .map(booking => {
       return eachDayOfInterval({
         start: new Date(booking.startDate),
         end: new Date(booking.endDate),
@@ -136,9 +124,7 @@ export async function getSettings() {
 
 export async function getCountries() {
   try {
-    const res = await fetch(
-      'https://restcountries.com/v2/all?fields=name,flag'
-    );
+    const res = await fetch('https://restcountries.com/v2/all?fields=name,flag');
     const countries = await res.json();
     return countries;
   } catch {
