@@ -1,14 +1,18 @@
 import { Suspense } from 'react';
 import CabinList from '@/app/_components/CabinList';
 import Spinner from '@/app/_components/Spinner';
+import Filter from '../_components/Filter';
 
-export const revalidate = 3600;
+// revalidate is for static pages. Here we use the search params which is something the server can't know about so this page is rendered dynamically
+// export const revalidate = 3600;
 
 export const metadata = {
   title: 'Cabins',
 };
 
-export default function Page() {
+export default function Page({ searchParams }) {
+  const filter = searchParams?.capacity ?? 'all';
+
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">Our Luxury Cabins</h1>
@@ -20,8 +24,12 @@ export default function Page() {
         to paradise.
       </p>
 
-      <Suspense>
-        <CabinList fallback={<Spinner />} />
+      <div className="flex justify-end mb-8">
+        <Filter />
+      </div>
+
+      <Suspense fallback={<Spinner />} key={filter}>
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );
