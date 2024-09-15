@@ -28,13 +28,39 @@ export async function updateGuest(formData) {
   revalidatePath('/account/profile');
 }
 
+export async function editReservation(updatedFields) {
+  const session = await auth();
+
+  if (!session) throw new Error('You must be logged in');
+
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map(booking => booking.id);
+
+  if (!guestBookingsIds.includes(bookingId))
+    throw new Error('Your are not allowed to edit this booking');
+
+  const { error } = await supabase
+    .from('bookings')
+    .update(updatedFields)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be updated');
+  }
+
+  revalidatePath('/account/reservations/edit');
+}
+
 export async function deleteReservation(bookingId) {
   const session = await auth();
 
   if (!session) throw new Error('You must be logged in');
 
   const guestBookings = await getBookings(session.user.guestId);
-  const guestBookingIds = guestBookings.map(booking => booking.id);
+  const guestBookingsIds = guestBookings.map(booking => booking.id);
 
   if (!guestBookingsIds.includes(bookingId))
     throw new Error('Your are not allowed to delete this booking');
