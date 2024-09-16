@@ -44,9 +44,8 @@ export async function updateBooking(formData) {
 
   const updateData = {
     numGuests: Number(formData.get('numGuests')),
-    observations: formData.get('observations').slice(0,1000)
-  }
-
+    observations: formData.get('observations').slice(0, 1000),
+  };
 
   const { error } = await supabase
     .from('bookings')
@@ -56,7 +55,6 @@ export async function updateBooking(formData) {
     .single();
 
   if (error) throw new Error('Booking could not be updated');
-  
 
   redirect('/account/reservations');
 }
@@ -78,8 +76,6 @@ export async function deleteReservation(bookingId) {
 
   revalidatePath('/account/reservations');
 }
-
-
 
 export async function signInAction() {
   await signIn('google', { redirectTo: '/account' });
