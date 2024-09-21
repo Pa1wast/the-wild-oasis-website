@@ -63,6 +63,8 @@ export async function updateBooking(formData) {
 }
 
 export async function deleteReservation(bookingId) {
+  throw new Error();
+
   const session = await auth();
 
   if (!session) throw new Error('You must be logged in');
