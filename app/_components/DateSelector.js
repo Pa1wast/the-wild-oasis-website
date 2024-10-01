@@ -15,14 +15,15 @@ function isAlreadyBooked(range, datesArr) {
 
 function DateSelector({ settings, cabin, bookedDates }) {
   const { range, setRange, resetRange } = useReservation();
-  // CHANGE
+
   const { regularPrice, discount } = cabin;
+
   const displayedRange = isAlreadyBooked(range, bookedDates) ? [] : range;
+
   const numNights = differenceInDays(displayedRange.to, displayedRange.from);
 
   const cabinPrice = numNights * (regularPrice - discount);
 
-  // SETTINGS
   const { minBookingLength, maxBookingLength } = settings;
 
   return (
