@@ -1,13 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import bg from '@/public/bg.png';
-import { getCabins } from './_lib/data-service';
 
-export default async function Page() {
-  const data = await getCabins();
-
-  console.log({ data });
-
+export default function Page() {
   return (
     <main className="mt-24">
       <Image
